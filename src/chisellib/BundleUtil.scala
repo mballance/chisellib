@@ -1,7 +1,6 @@
 package chisellib
 
 import chisel3._
-import std_protocol_if.WishboneReqData
 
 class BundleUtil extends Bundle {
 
