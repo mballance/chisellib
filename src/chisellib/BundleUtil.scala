@@ -13,17 +13,21 @@ class BundleUtil extends Bundle {
   }
   
   def assign_b2(o : BundleUtil) {
-    val o_el = o.elements;
     
+    if (o.isInstanceOf[this.type]) {
+    val o_el = o.elements;
     for (i <- elements.iterator) {
       o_el.get(i._1).get := i._2
+    } 
+    } else {
+      println("Error: assign_b2 type mismatch")
     }
   }
 }
 
-class ParametersUtil {
+class ParametersBase {
  
-      def cloneType() = {
+  def cloneType() = {
       println("cloneType");
       for (c <- this.getClass.getConstructors) {
         println("c: " + c)
@@ -31,21 +35,16 @@ class ParametersUtil {
           println("p: " + p.getName)
         }
       }
-//      (new WishboneParameters(ADDR_WIDTH, DATA_WIDTH,
-//        TGA_WIDTH, TGD_WIDTH, TGC_WIDTH)).asInstanceOf[this.type]
-    }
-    
-    cloneType()
-    
+  }
 }
 
-class ParameterizedBundleUtil(val _p : Object) extends BundleUtil {
+class ParameterizedBundle(val p : Object) extends BundleUtil {
   
   override def cloneType() : this.type = {
     val constructor = this.getClass.getConstructors.head
     try {
-      val args = Seq.fill(constructor.getParameterTypes.size)(_p)
-      constructor.newInstance(_p).asInstanceOf[this.type]
+      val args = Seq.fill(constructor.getParameterTypes.size)(p)
+      constructor.newInstance(p).asInstanceOf[this.type]
     } catch {
       case e: java.lang.Exception => this
     }
