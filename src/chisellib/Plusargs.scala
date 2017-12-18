@@ -5,6 +5,7 @@ package chisellib
 import scala.collection.Map
 import scala.util.matching.Regex
 import java.util.regex.Pattern
+import chisellib.factory.ModuleFactory
 
 class Plusargs(args : Array[String]) {
   val plusargs = args.filter(_.startsWith("+")).map(p => p.substring(1))
@@ -33,6 +34,15 @@ class Plusargs(args : Array[String]) {
     plusargs.filter(
         p => (p.startsWith(v) && p.length() > v.length() && p.charAt(v.length()) == '=')
     ).map(p => p.substring(p.indexOf('=')+1))
+  }
+ 
+  /**
+   * For each '+set_type_override', apply the relevant override 
+   */
+  def apply_overrides {
+    for (o <- plusargs("+set_type_override")) {
+      
+    }
   }
  
   /**
