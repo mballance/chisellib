@@ -6,6 +6,7 @@ ifneq (1,$(RULES))
 CHISELLIB_JAR := chisellib.jar
 CHISELLIB_SRC := \
 	$(wildcard $(CHISELLIB_SRC_DIR)/chisellib/*.scala) \
+	$(wildcard $(CHISELLIB_SRC_DIR)/chisellib/factory/*.scala) \
 	$(wildcard $(CHISELLIB_SRC_DIR)/chisellib/blackbox/*.scala) \
 
 else # Rules
