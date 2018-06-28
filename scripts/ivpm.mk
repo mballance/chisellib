@@ -7,10 +7,10 @@ LIB_DIR = $(CHISELLIB_DIR)/lib
 # Must support dual modes: 
 # - build dependencies if this project is the active one
 # - rely on the upper-level makefile to resolve dependencies if we're not
--include $(CHISELLIB_DIR)/packages/packages.mk
+-include $(PACKAGES_DIR)/packages.mk
 include $(CHISELLIB_DIR)/etc/ivpm.info
 
-# include $(CHISELLIB_DIR)/src/chisellib.mk
+include $(CHISELLIB_DIR)/mkfiles/chisellib.mk
 include $(PACKAGES_DIR)/chiselscripts/mkfiles/chiselscripts.mk
 
 CHISELLIB_SRC := \
@@ -18,18 +18,18 @@ CHISELLIB_SRC := \
 	$(wildcard $(CHISELLIB_DIR)/src/chisellib/factory/*.scala) \
 	$(wildcard $(CHISELLIB_DIR)/src/chisellib/blackbox/*.scala) \
 
-chisellib_build_targets += $(LIB_DIR)/$(CHISELLIB_JAR)
-
 RULES := 1
 
-build : $(chisellib_build_targets)
+ifeq (true,$(PHASE2))
+build : $(CHISELLIB_JAR)
+else
+build : $(chisellib_deps)
+	$(MAKE) -f $(lastword $(MAKEFILE_LIST)) PHASE2=true build
+endif
 
-$(chisellib_build_targets) : $(package_deps)
-
-$(LIB_DIR)/$(CHISELLIB_JAR) : $(CHISELLIB_SRC)
+$(CHISELLIB_JAR) : $(CHISELLIB_SRC)
 	$(Q)if test ! -d `dirname $@`; then mkdir -p `dirname $@`; fi
-	$(Q)$(CHISELC) -o $@ $(CHISELLIB_SRC)
-	$(Q)touch $@
+	$(Q)$(DO_CHISELC)
 
 release : build
 	$(Q)rm -rf $(CHISELLIB_DIR)/build
@@ -42,6 +42,7 @@ release : build
 		tar czf chisellib-$(version).tar.gz chisellib
 	$(Q)rm -rf $(CHISELLIB_DIR)/build/chisellib
 
-# include $(CHISELLIB_DIR)/src/chisellib.mk
+include $(CHISELLIB_DIR)/mkfiles/chisellib.mk
 include $(PACKAGES_DIR)/chiselscripts/mkfiles/chiselscripts.mk
+-include $(PACKAGES_DIR)/packages.mk
 
