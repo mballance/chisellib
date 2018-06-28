@@ -1,0 +1,10 @@
+#****************************************************************************
+#* packages.mk
+#*
+#* Specifies the packages required by chisellib
+#****************************************************************************
+
+# chiselscripts
+chiselscripts@http://github.com/mballance/chiselscripts.git
+# chiselscripts@file:///scratch1/repo/chiselscripts-0.0.1.tar.gz
+
