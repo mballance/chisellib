@@ -22,9 +22,15 @@ RULES := 1
 
 ifeq (true,$(PHASE2))
 build : $(CHISELLIB_JAR)
+
+clean : 
+	$(Q)rm -rf $(LIB_DIR)
 else
 build : $(chisellib_deps)
 	$(MAKE) -f $(lastword $(MAKEFILE_LIST)) PHASE2=true build
+
+clean : clean_chisellib
+
 endif
 
 $(CHISELLIB_JAR) : $(CHISELLIB_SRC)
