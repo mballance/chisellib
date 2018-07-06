@@ -24,12 +24,14 @@ ifeq (true,$(PHASE2))
 build : $(CHISELLIB_JAR)
 
 clean : 
-	$(Q)rm -rf $(LIB_DIR)
+	$(Q)rm -rf $(CHISELLIB_DIR)/build $(LIB_DIR)
+
 else
 build : $(chisellib_deps)
 	$(MAKE) -f $(lastword $(MAKEFILE_LIST)) PHASE2=true build
 
-clean : clean_chisellib
+clean : $(chisellib_clean_deps)
+	$(MAKE) -f $(lastword $(MAKEFILE_LIST)) PHASE2=true clean
 
 endif
 
