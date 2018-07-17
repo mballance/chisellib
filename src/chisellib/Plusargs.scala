@@ -30,6 +30,15 @@ class Plusargs(args : Array[String]) {
     if (f != null) f else d
   }
   
+  def plusarg(v : String, d : Int) : Int = {
+    val f = plusarg(v);
+    if (f != null) {
+      f.toInt
+    } else {
+      d
+    }
+  }
+  
   def plusargs(v : String) : Array[String] = {
     plusargs.filter(
         p => (p.startsWith(v) && p.length() > v.length() && p.charAt(v.length()) == '=')
