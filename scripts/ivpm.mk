@@ -15,6 +15,7 @@ include $(PACKAGES_DIR)/chiselscripts/mkfiles/chiselscripts.mk
 
 CHISELLIB_SRC := \
 	$(wildcard $(CHISELLIB_DIR)/src/chisellib/*.scala) \
+	$(wildcard $(CHISELLIB_DIR)/src/chisellib/arb/*.scala) \
 	$(wildcard $(CHISELLIB_DIR)/src/chisellib/factory/*.scala) \
 	$(wildcard $(CHISELLIB_DIR)/src/chisellib/blackbox/*.scala) \
 
