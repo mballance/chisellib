@@ -4,7 +4,5 @@
 #* Specifies the packages required by chisellib
 #****************************************************************************
 
-# chiselscripts
-chiselscripts@http://github.com/mballance/chiselscripts.git
-# chiselscripts@file:///scratch1/repo/chiselscripts-0.0.1.tar.gz
+chiselscripts@https://github.com/mballance/chiselscripts/releases/download/0.0.3/chiselscripts-0.0.3.tar.gz
 
